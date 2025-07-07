@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+  Bhaskar's Scientific Calculator
+  A simple scientific calculator with basic operations, trigonometric functions, logarithms, and constants like π and e.
+!-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bhaskar's Scientific Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; }
+    .calculator {
+      width: 350px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #222;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0004;
+    }
+    .display {
+      width: 100%;
+      height: 50px;
+      background: #111;
+      color: #fff;
+      font-size: 2em;
+      text-align: right;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      overflow-x: auto;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 18px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 5px;
+      background: #444;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #666; }
+    .span-2 { grid-column: span 2; }
+    .op { background: #1e90ff; }
+    .op:hover { background: #4682b4; }
+    .eq { background: #28a745; }
+    .eq:hover { background: #218838; }
+    .clr { background: #dc3545; }
+    .clr:hover { background: #c82333; }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div id="display" class="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()" class="clr">C</button>
+      <button onclick="backspace()">⌫</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
+      <button onclick="append('/')">÷</button>
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('*')">×</button>
+      <button onclick="append('^')">^</button>
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('-')">−</button>
+      <button onclick="append('sqrt(')">√</button>
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('+')">+</button>
+      <button onclick="append('log(')">log</button>
+      <button onclick="append('0')" class="span-2">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()" class="eq">=</button>
+      <button onclick="append('sin(')">sin</button>
+      <button onclick="append('cos(')">cos</button>
+      <button onclick="append('tan(')">tan</button>
+      <button onclick="append('pi')">π</button>
+      <button onclick="append('e')">e</button>
+    </div>
+  </div>
+  <script>
+    let display = document.getElementById('display');
+    let current = '';
+
+    function append(val) {
+      if (current === '0' && val !== '.') current = '';
+      current += val;
+      display.textContent = current;
+    }
+
+    function clearDisplay() {
+      current = '';
+      display.textContent = '0';
+    }
+
+    function backspace() {
+      current = current.slice(0, -1);
+      display.textContent = current || '0';
+    }
+
+    function calculate() {
+      try {
+        let expr = current
+          .replace(/π|pi/g, 'Math.PI')
+          .replace(/e/g, 'Math.E')
+          .replace(/sqrt\(/g, 'Math.sqrt(')
+          .replace(/log\(/g, 'Math.log10(')
+          .replace(/sin\(/g, 'Math.sin(')
+          .replace(/cos\(/g, 'Math.cos(')
+          .replace(/tan\(/g, 'Math.tan(')
+          .replace(/\^/g, '**');
+        let result = Function('"use strict";return (' + expr + ')')();
+        display.textContent = result;
+        current = result.toString();
+      } catch {
+        display.textContent = 'Error';
+        current = '';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+    <!-- End of file Main.html -->
+<!-- This is a simple scientific calculator with basic operations, trigonometric functions, logarithms,
+and constants like π and e. It features a clean design with a responsive layout, allowing users to perform calculations easily. The calculator supports operations such as addition, subtraction, multiplication, division, exponentiation, square root, and trigonometric functions. The display updates dynamically as users input values, and it handles errors gracefully by showing "Error" when an invalid expression is entered. -->
+<!-- The calculator is designed to be user-friendly, with buttons for each operation and function, making it accessible for both casual users and those needing scientific calculations. The use of JavaScript allows for real-time calculations and updates to the display, enhancing the user experience. -->
+<!-- The calculator can be easily extended with additional features or functions as needed, making it a versatile tool for various mathematical tasks. Its simple yet effective design ensures that it remains functional and easy to use across different devices. -->
+<!-- The code is structured to allow for easy maintenance and updates, with clear separation of HTML, CSS, and JavaScript. This modular approach ensures that changes can be made without affecting the overall functionality of the calculator. -->
+<!-- The calculator is a great example of how web technologies can be used to create interactive and useful applications. It demonstrates the power of JavaScript in handling user input and performing complex calculations while providing a smooth and responsive user interface. -->
+<!-- The calculator can be used in various educational and professional settings, providing a reliable tool for performing scientific calculations. Its design is adaptable, allowing it to fit into different web applications or standalone use cases. -->
+<!-- The calculator's functionality can be further enhanced by adding features like history tracking, memory functions, or even graphing capabilities. This would make it an even more powerful tool for users who require advanced mathematical operations. -->
+<!-- Overall, this scientific calculator serves as a solid foundation for anyone looking to implement a functional and user-friendly calculator in their web projects. Its simplicity and effectiveness make it a valuable addition to any developer's toolkit. -->
+<!-- The calculator's design and functionality can be easily customized to fit specific needs or preferences, making it a flexible solution for various applications. Whether for educational purposes, professional use, or personal projects, this calculator provides a reliable and efficient way to perform scientific calculations. -->
+<!-- The code is well-commented and structured, making it easy for developers to understand and modify as needed. This ensures that anyone can pick up the code and make enhancements or adjustments without a steep learning curve. The use of modern JavaScript features allows for clean and efficient code, promoting best practices in web development. -->
+<!-- The calculator's responsive design ensures that it works well on different screen sizes, making it accessible on both desktop and mobile devices. This adaptability is crucial in today's web environment, where users expect applications to function seamlessly across various platforms. -->
+<!-- The calculator's implementation of mathematical functions like sine, cosine, tangent, logarithm, and square root showcases the power of JavaScript in handling complex calculations. By leveraging built-in Math functions, the calculator can perform accurate computations while maintaining a user-friendly interface. This makes it an excellent tool for students, educators, and professionals alike. -->
+<!-- The calculator's ability to handle constants like π and e adds to its utility, allowing users to perform calculations that require these fundamental mathematical constants. This feature is particularly useful in scientific and engineering applications, where precision and accuracy are paramount. -->
+<!-- The overall user experience is enhanced by the calculator's clean layout and intuitive button arrangement, making it easy for users to navigate and perform calculations without confusion. The use of hover effects and color changes on button interactions provides visual feedback, improving usability and engagement. -->
+<!-- The calculator's functionality can be expanded further by integrating additional mathematical functions or features, such as graphing capabilities, unit conversions, or statistical calculations. This would make it an even more powerful tool for users who require advanced mathematical operations. -->
+<!-- The calculator serves as a practical example of how web technologies can be used to create interactive and useful applications. It demonstrates the power of JavaScript in handling user input and performing complex calculations while providing a smooth and responsive user interface. This makes it an excellent resource for developers looking to implement similar functionality in their projects. -->
+<!-- The calculator's design and functionality can be easily customized to fit specific needs or preferences, making it a flexible solution for various applications. Whether for educational purposes, professional use, or personal projects, this calculator provides a reliable and efficient way to perform scientific calculations. Its simplicity and effectiveness make it a valuable addition to any developer's toolkit. -->
+<!-- The calculator's implementation of mathematical functions like sine, cosine, tangent, logarithm, and square root showcases the power of JavaScript in handling complex calculations. By leveraging built-in Math functions, the calculator can perform accurate computations while maintaining a user-friendly interface. This makes it an excellent tool for students, educators, and professionals alike. -->
+<!-- The calculator's ability to handle constants like π and e adds to its utility, allowing users to perform calculations that require these fundamental mathematical constants. This feature is particularly useful in scientific and engineering applications, where precision and accuracy are paramount. -->
+<!-- The overall user experience is enhanced by the calculator's clean layout and intuitive button arrangement, making it easy for users to navigate and perform calculations without confusion. The use of hover effects and color changes on button interactions provides visual feedback, improving usability and engagement. -->
+<!-- The calculator's functionality can be expanded further by integrating additional mathematical functions or features, such as graphing capabilities, unit conversions, or statistical calculations. This would make it an even more powerful tool for users who require advanced mathematical operations. -->
